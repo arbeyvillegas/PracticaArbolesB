@@ -1,0 +1,6 @@
+controller
+dataAccess
+domain
+domain.component
+helper
+viewModel

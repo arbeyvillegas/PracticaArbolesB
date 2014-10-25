@@ -1,0 +1,10 @@
+@CHARSET "ISO-8859-1";
+.header{border-bottom: 1px solid black;text-align: center;}
+table{margin:auto;}
+td[colspan="2"]{text-align:right;}
+caption{font-weight:bold;} 
+h1{text-align:center;}
+.numero{text-align:right;}
+select{width:100%;}
+.tableInsert{border:1px solid black}
+input[type="text"]{width:96%;}

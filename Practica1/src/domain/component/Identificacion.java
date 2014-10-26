@@ -5,7 +5,7 @@ public class Identificacion extends BaseComponent{
 	/**
 	 * Numero de cedula
 	 */
-	private int cedula;
+//	private int cedula;
 	/**
 	 * Nombre de la entidad
 	 */
@@ -20,15 +20,15 @@ public class Identificacion extends BaseComponent{
 	/**
 	 * @return Numero de cedula
 	 */
-	public int getCedula() {
-		return cedula;
-	}
+//	public int getCedula() {
+//		return cedula;
+//	}
 	/**
 	 * @param Numero de cedula
 	 */
-	public void setCedula(int cedula) {
-		this.cedula = cedula;
-	}
+//	public void setCedula(int cedula) {
+//		this.cedula = cedula;
+//	}
 	/**
 	 * @return Nombre
 	 */

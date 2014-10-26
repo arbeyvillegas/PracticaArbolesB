@@ -53,10 +53,12 @@ class TallerLogic extends BaseLogic{
 			this.dataSource.insertar(TallerLogic.CampoNombre,taller.getNombre());
 			this.dataSource.insertar(TallerLogic.CampoTelefono,String.valueOf(taller.getTelefono()));
 			this.dataSource.insertar(TallerLogic.CampoDireccion,taller.getDireccion());
-			this.dataSource.confirmarTransaccion();			
+			resultado.setFilePointer(this.dataSource.confirmarTransaccion());			
 		} catch (IOException e) {
+			resultado.setResultado(false);
 			resultado.setMensaje(e.getMessage());
 		}catch(Exception e) {
+			resultado.setResultado(false);
 			resultado.setMensaje(e.getMessage());
 		}finally {
 			this.dataSource.cerrarConexion();

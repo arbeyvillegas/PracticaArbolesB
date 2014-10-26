@@ -78,17 +78,19 @@ class TaxiLogic extends BaseLogic {
 		resultado.setMensaje("Registro guardado satisfactoriamente");
 		try {
 			this.dataSource.abrirConexion();
-			this.dataSource.insertar(TaxiLogic.CampoNumero,String.valueOf(taxi.getNumeroTaxi()));
+			this.dataSource.insertar(TaxiLogic.CampoNumero,String.valueOf(taxi.getCodigo()));
 			this.dataSource.insertar(TaxiLogic.CampoPlaca,taxi.getPlaca());
 			this.dataSource.insertar(TaxiLogic.CampoModelo,String.valueOf(taxi.getModelo()));
 			this.dataSource.insertar(TaxiLogic.CampoMarca,taxi.getMarca());
 			this.dataSource.insertar(TaxiLogic.CampoPropietario,String.valueOf(taxi.getPropietario()));
 			this.dataSource.insertar(TaxiLogic.CampoConductor,String.valueOf(taxi.getConductor()));
 			this.dataSource.insertar(TaxiLogic.CampoTaller,String.valueOf(taxi.getTaller()));
-			this.dataSource.confirmarTransaccion();			
+			resultado.setFilePointer(this.dataSource.confirmarTransaccion());			
 		} catch (IOException e) {
+			resultado.setResultado(false);
 			resultado.setMensaje(e.getMessage());
 		}catch(Exception e) {
+			resultado.setResultado(false);
 			resultado.setMensaje(e.getMessage());
 		}finally {
 			this.dataSource.cerrarConexion();
@@ -167,7 +169,7 @@ class TaxiLogic extends BaseLogic {
 		short modelo=Short.parseShort(valores.get(TaxiLogic.CampoModelo));
 		entidad.setModelo(modelo);
 		short numero=Short.parseShort(valores.get(TaxiLogic.CampoNumero));
-		entidad.setNumeroTaxi(numero);
+		entidad.setCodigo(numero);
 		entidad.setPlaca(valores.get(TaxiLogic.CampoPlaca));
 		int propietario=Integer.parseInt(valores.get(TaxiLogic.CampoPropietario));
 		entidad.setPropietario(propietario);

@@ -18,6 +18,11 @@ public class ResultadoOperacion {
 	private String mensaje;
 	
 	/**
+	 * Apuntador de ubicación del registro cuando se guarda
+	 */
+	private long filePointer;
+	
+	/**
 	 * Constructor de la clase
 	 */
 	public ResultadoOperacion() {
@@ -41,10 +46,19 @@ public class ResultadoOperacion {
 	public String getMensaje() {
 		return mensaje;
 	}
+	
+	public long getFilePointer() {
+		return this.filePointer;
+	}
+	
 	/**
 	 * @param mensaje resultante de la operacion
 	 */
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+	
+	public void setFilePointer(long filePointer) {
+		this.filePointer=filePointer;
 	}
 }

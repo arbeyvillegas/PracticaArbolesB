@@ -11,7 +11,7 @@ public class Taxi extends BaseComponent{
 	/**
 	 * Numero del taxi
 	 */
-	private short numeroTaxi;
+//	private short numeroTaxi;
 	/**
 	 * Placa del taxi
 	 */
@@ -41,15 +41,15 @@ public class Taxi extends BaseComponent{
 	/**
 	 * @return Numero del taxi
 	 */
-	public short getNumeroTaxi() {
-		return numeroTaxi;
-	}
+//	public short getNumeroTaxi() {
+//		return numeroTaxi;
+//	}
 	/**
 	 * @param Numero del taxi
 	 */
-	public void setNumeroTaxi(short numeroTaxi) {
-		this.numeroTaxi = numeroTaxi;
-	}
+//	public void setNumeroTaxi(short numeroTaxi) {
+//		this.numeroTaxi = numeroTaxi;
+//	}
 	/**
 	 * @return placa del taxi
 	 */

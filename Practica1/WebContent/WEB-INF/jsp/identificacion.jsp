@@ -16,7 +16,7 @@
 			<caption>Insertar identificaci&oacute;n</caption>
 			<tr>
 				<td>C&eacute;dula</td>
-				<td><form:input path="cedula" maxlength="8"/></td>
+				<td><form:input path="codigo" maxlength="8"/></td>
 			</tr>
 			<tr>
 				<td>Nombre</td>

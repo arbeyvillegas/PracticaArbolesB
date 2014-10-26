@@ -16,7 +16,7 @@
 			<caption>Insertar taxi</caption>
 			<tr>
 				<td>N&uacute;mero</td>
-				<td><form:input path="numeroTaxi" maxlength="3"/></td>
+				<td><form:input path="codigo" maxlength="3"/></td>
 			</tr>
 			<tr>
 				<td>Placa</td>

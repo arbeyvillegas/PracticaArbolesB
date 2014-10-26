@@ -40,12 +40,14 @@ class IdentificacionLogic extends BaseLogic {
 		resultado.setMensaje("Registro guardado satisfactoriamente");
 		try {
 			this.dataSource.abrirConexion();
-			this.dataSource.insertar(IdentificacionLogic.CampoCedula,String.valueOf(identificacion.getCedula()));
+			this.dataSource.insertar(IdentificacionLogic.CampoCedula,String.valueOf(identificacion.getCodigo()));
 			this.dataSource.insertar(IdentificacionLogic.CampoNombre,identificacion.getNombre());
-			this.dataSource.confirmarTransaccion();			
+			resultado.setFilePointer(this.dataSource.confirmarTransaccion());			
 		} catch (IOException e) {
+			resultado.setResultado(false);
 			resultado.setMensaje(e.getMessage());
 		}catch(Exception e) {
+			resultado.setResultado(false);
 			resultado.setMensaje(e.getMessage());
 		}finally {
 			this.dataSource.cerrarConexion();
@@ -87,7 +89,7 @@ class IdentificacionLogic extends BaseLogic {
 		
 		entidad.setTipo(tipo);
 		int cedula=Integer.parseInt(mapa.get(IdentificacionLogic.CampoCedula));
-		entidad.setCedula(cedula);
+		entidad.setCodigo(cedula);
 		entidad.setNombre(mapa.get(IdentificacionLogic.CampoNombre));
 		
 		return entidad;

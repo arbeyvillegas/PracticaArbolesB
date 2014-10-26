@@ -9,6 +9,7 @@ import java.util.Map;
 import helper.*;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ import domain.component.*;
  *
  */
 @Controller
-public class Practica1Controller implements ServletContextAware {
+public class Practica1Controller implements ServletContextAware{
 	/**
 	 * Contexto del servlet
 	 */
@@ -38,6 +39,14 @@ public class Practica1Controller implements ServletContextAware {
 	 */
 	@RequestMapping(value="/")
 	public String index(Model model) {
+		TipoArbol tipoValor=new TipoArbol();
+		model.addAttribute("modelo", tipoValor);
+		return "tipoArbol";
+	}
+	
+	@RequestMapping(value="/tipoArbolSeleccionado", method = RequestMethod.POST)
+	public String tipoArbolSeleccionado(@ModelAttribute("modelo") TipoArbol tipoArbol,Model model,HttpSession session) {
+		CacheArboles.guardarCache(session, CacheArboles.TipoArbol, tipoArbol.getValor(),true);
 		return "index";
 	}
 	/**
@@ -123,11 +132,13 @@ public class Practica1Controller implements ServletContextAware {
 	 * @return Nombre de la vista
 	 */
 	@RequestMapping(value = "/insertarIdentificacion", method = RequestMethod.POST)
-    public String insertarIdentificacion(@ModelAttribute("identificacion") Identificacion identificacion, Model model) {
+    public String insertarIdentificacion(@ModelAttribute("identificacion") Identificacion identificacion, Model model,HttpSession sesion) {
 		String rutaCarpeta=servletContext.getInitParameter("RutaCarpeta");
 		Fachada.RutaCarpeta=rutaCarpeta;
 		Fachada fachada=new Fachada();
 		ResultadoOperacion resultado=fachada.guardarIdentificacion(identificacion);
+		if(resultado.isResultado())
+ 			CacheArboles.guardarNodoArbol(sesion, CacheArboles.Identificacion, identificacion.getCodigo(), resultado.getFilePointer());
         model.addAttribute("message", resultado.getMensaje());
         return "resultadoInsercion";
     }
@@ -215,6 +226,6 @@ public class Practica1Controller implements ServletContextAware {
 	 */
 	@Override
 	public void setServletContext(ServletContext servletContext) {
-		this.servletContext=servletContext;
+		this.servletContext=servletContext;		
 	}
 }

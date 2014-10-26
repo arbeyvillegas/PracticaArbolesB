@@ -163,7 +163,7 @@ public class Fachada {
 				
 				//establecer los valores
 				TaxiViewModel taxiViewModel=new TaxiViewModel();
-				taxiViewModel.setNumeroTaxi(taxi.getNumeroTaxi());
+				taxiViewModel.setNumeroTaxi(taxi.getCodigo());
 				taxiViewModel.setPlaca(taxi.getPlaca());
 				if(conductor!=null)
 					taxiViewModel.setNombreConductor(conductor.getNombre());
@@ -203,7 +203,7 @@ public class Fachada {
 				for(int j=0;j<taxis.size();j++) {
 					if(j>0)
 						buffer.append(",");
-					buffer.append(taxis.get(j).getNumeroTaxi());
+					buffer.append(taxis.get(j).getCodigo());
 				}
 				tallerViewModel.setCodigosTaxi(buffer.toString());
 				resultado.getTalleres().add(tallerViewModel);

@@ -11,7 +11,7 @@ public class Taller extends BaseComponent{
 	/**
 	 * Codigo del taller
 	 */
-	public short codigo;
+//	public short codigo;
 	/**
 	 * Nombre del taller
 	 */
@@ -28,15 +28,15 @@ public class Taller extends BaseComponent{
 	/**
 	 * @return codigo del taller
 	 */
-	public short getCodigo() {
-		return codigo;
-	}
+//	public short getCodigo() {
+//		return codigo;
+//	}
 	/**
 	 * @param codigo del taller
 	 */
-	public void setCodigo(short codigo) {
-		this.codigo = codigo;
-	}
+//	public void setCodigo(short codigo) {
+//		this.codigo = codigo;
+//	}
 	/**
 	 * @return nombre del taller
 	 */

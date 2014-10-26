@@ -255,14 +255,17 @@ public class DataSource {
 	/**
 	 * Confirmar el guardado del registro
 	 */
-	public void confirmarTransaccion() {
+	public long confirmarTransaccion() {
+		long filePointer=-1;
 		if(this.bufferedWriter!=null) {
 			try {
+				filePointer=this.bufferedWriter.getFilePointer();
 				this.bufferedWriter.writeUTF(this.lineaInsertar.toString());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		return filePointer;
 	}
 	
 	/**

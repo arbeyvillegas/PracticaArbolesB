@@ -8,5 +8,14 @@ package domain.component;
  *
  */
 public abstract class BaseComponent {
+	int codigo;
 	
+	public void setCodigo(int codigo) {
+		this.codigo=codigo;
+	}
+	
+	public int getCodigo() {
+		return this.codigo;
+	}
 }
+	

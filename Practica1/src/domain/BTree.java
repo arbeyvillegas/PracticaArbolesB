@@ -3,6 +3,8 @@ package domain;
 
 import java.util.NoSuchElementException;
 
+import domain.component.BInfo;
+
 /**
  * jBixbe debuggee: test insert and delete operation of a balanced tree data
  * structure. Using integer values read from keyboard as tree elements.
@@ -68,6 +70,10 @@ public class BTree<T extends Comparable<T>> {
      */
     public BTree(Node root) {
         this.root = root;
+    }
+    
+    public Node getRoot() {
+    	return this.root;
     }
 
     /**
@@ -544,7 +550,7 @@ public class BTree<T extends Comparable<T>> {
         c.balance = '_';
     }
 
-    class Node {
+    public class Node {
 
         T information;
 
@@ -555,6 +561,18 @@ public class BTree<T extends Comparable<T>> {
         Node right;
 
         char balance;
+        
+        public T getInfo() {
+        	return information;
+        }
+        
+        public Node getLeft() {
+        	return this.left;
+        }
+        
+        public Node getRight() {
+        	return this.right;
+        }
 
         public Node(T information, Node parent) {
             this.information = information;

@@ -5,8 +5,9 @@ package helper;
 
 import javax.servlet.http.HttpSession;
 
+import domain.BPTree;
 import domain.BTree;
-import domain.BxTree;
+//import domain.BxTree;
 import domain.component.BInfo;
 
 /**
@@ -18,11 +19,19 @@ public class CacheArboles {
 	public final static String Taxi = "Taxi";
 	public final static String Taller = "Taller";
 	public final static String Identificacion = "Identificacion";
+	public final static String ArbolB="B";
+	public final static String ArbolBPlus="BPlus";
 
 	private HttpSession sesion;
 
 	public CacheArboles(HttpSession session) {
 		this.sesion = session;
+	}
+	
+	public static String getTipoArbol(HttpSession sesion) {
+		CacheArboles cache = new CacheArboles(sesion);
+		String tipoArbol = cache.getCache(CacheArboles.TipoArbol); 
+		return tipoArbol;
 	}
 
 	public static <T> void guardarCache(HttpSession sesion, String clave,
@@ -33,20 +42,20 @@ public class CacheArboles {
 			cache.limpiarCache();
 	}
 
-	public static <T> T obtenerCache(HttpSession sesion, String clave) {
+	public static <T> T getCache(HttpSession sesion, String clave) {
 		CacheArboles cache = new CacheArboles(sesion);
-		return cache.ObtenerCache(clave);
+		return cache.getCache(clave);
 	}
 
 	public static void guardarNodoArbol(HttpSession sesion, String clave,
 			int codigo, long direccion) {
 		CacheArboles cache = new CacheArboles(sesion);
-		String tipoArbol = cache.ObtenerCache(CacheArboles.TipoArbol);
+		String tipoArbol = cache.getCache(CacheArboles.TipoArbol);
 		switch (tipoArbol) {
-		case "B":
+		case CacheArboles.ArbolB:
 			CacheArboles.guardarNodoArbolB(cache, clave, codigo, direccion);
 			break;
-		case "BPlus":
+		case CacheArboles.ArbolBPlus:
 			CacheArboles.guardarNodoArbolBPlus(cache, clave, codigo, direccion);
 			break;
 		}
@@ -54,7 +63,7 @@ public class CacheArboles {
 
 	private static void guardarNodoArbolB(CacheArboles cache, String clave,
 			int codigo, long direccion) {
-		BTree<BInfo> tree = cache.ObtenerCache(clave);
+		BTree<BInfo> tree = cache.getCache(clave);
 		if (tree == null)
 			tree = new BTree<BInfo>();
 		BInfo info = new BInfo();
@@ -67,19 +76,23 @@ public class CacheArboles {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static void guardarNodoArbolBPlus(CacheArboles cache, String clave,
 			int codigo, long direccion) {
-		BxTree<BInfo,Long> tree=cache.ObtenerCache(clave);
-		if(tree==null)
-			tree=new BxTree(3);
-		BInfo info=new BInfo();
-		info.setDireccion(direccion);
-		info.setDato(codigo);
-		tree.insert(info, direccion);
+		BPTree<Integer, Long> tree=cache.getCache(clave);
+		if (tree == null)
+			tree = new BPTree(new ComparadorEntero());
+		tree.put(codigo, direccion);
+//		BxTree<BInfo, Long> tree = cache.getCache(clave);
+//		if (tree == null)
+//			tree = new BxTree(3);
+//		BInfo info = new BInfo();
+//		info.setDireccion(direccion);
+//		info.setDato(codigo);
+//		tree.insert(info, direccion);
 		cache.guardarCache(clave, tree);
 	}
 
 	public static BInfo getInfo(HttpSession sesion, String clave, int codigo) {
 		CacheArboles cache = new CacheArboles(sesion);
-		BTree<BInfo> tree = cache.ObtenerCache(clave);
+		BTree<BInfo> tree = cache.getCache(clave);
 		BInfo info = null;
 		if (tree != null) {
 			BInfo filtro = new BInfo();
@@ -94,7 +107,7 @@ public class CacheArboles {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> T ObtenerCache(String clave) {
+	private <T> T getCache(String clave) {
 		Object objeto = this.sesion.getAttribute(clave);
 		if (objeto != null)
 			return (T) objeto;

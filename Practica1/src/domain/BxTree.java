@@ -82,7 +82,7 @@ public class BxTree<Key extends Comparable<? super Key>, Value> {
 	}
 
 	@SuppressWarnings("unchecked")
-	class LNode extends Node {
+	public class LNode extends Node {
 		// In some sense, the following casts are almost always illegal
 		// (if Value was replaced with a real type other than Object,
 		// the cast would fail); but they make our code simpler
@@ -92,6 +92,10 @@ public class BxTree<Key extends Comparable<? super Key>, Value> {
 		final Value[] values = (Value[]) new Object[M];
 		{
 			keys = (Key[]) new Comparable[M];
+		}
+		
+		public Value[] getValues() {
+			return values;
 		}
 
 		/**
@@ -164,11 +168,15 @@ public class BxTree<Key extends Comparable<? super Key>, Value> {
 		}
 	}
 	@SuppressWarnings("unchecked")
-	class INode extends Node {
+	public class INode extends Node {
 		
 		final Node[] children = new BxTree.Node[N + 1];
 		{
 			keys = (Key[]) new Comparable[N];
+		}
+		
+		public Node[] getChildren() {
+			return children;
 		}
 
 		/**

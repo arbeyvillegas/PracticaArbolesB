@@ -44,11 +44,50 @@ public class Practica1Controller implements ServletContextAware{
 		return "tipoArbol";
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param tipoArbol
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/tipoArbolSeleccionado", method = RequestMethod.POST)
 	public String tipoArbolSeleccionado(@ModelAttribute("modelo") TipoArbol tipoArbol,Model model,HttpSession session) {
 		CacheArboles.guardarCache(session, CacheArboles.TipoArbol, tipoArbol.getValor(),true);
+		String rutaCarpeta=servletContext.getInitParameter("RutaCarpeta");
+		ArchivoHelper.eliminarArchivos(rutaCarpeta);
 		return "index";
 	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/seleccionarArbolVisualizar")
+	public String seleccionarArbolVisualizar(Model model) {
+		TipoArbol tipoValor=new TipoArbol();
+		model.addAttribute("modelo", tipoValor);
+		return "seleccionarArbolVisualizar";
+	}
+	
+	/**
+	 * 
+	 * @param tipoArbol
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/visualizarArbol", method = RequestMethod.POST)
+	public String visualizarArbol(@ModelAttribute("modelo") TipoArbol tipoArbol,Model model,HttpSession sesion) {
+		model.addAttribute("tipo", tipoArbol.getValor());
+		String xml=ConvertirArbolXml.leerArbol(sesion, tipoArbol.getValor());
+		model.addAttribute("xml", xml);
+		return "visualizarArbol";
+	}
+	
 	/**
 	 * Llamado a la vista taxi
 	 * @param Modelo que controla los datos de vista
@@ -116,11 +155,13 @@ public class Practica1Controller implements ServletContextAware{
 	 * @return Nombre de la vista
 	 */
 	@RequestMapping(value = "/insertarTaxi", method = RequestMethod.POST)
-    public String insertarTaxi(@ModelAttribute("taxi") Taxi taxi, Model model) {
+    public String insertarTaxi(@ModelAttribute("taxi") Taxi taxi, Model model,HttpSession sesion) {
 		String rutaCarpeta=servletContext.getInitParameter("RutaCarpeta");
 		Fachada.RutaCarpeta=rutaCarpeta;
 		Fachada fachada=new Fachada();
 		ResultadoOperacion resultado=fachada.guardarTaxi(taxi);
+		if(resultado.isResultado())
+ 			CacheArboles.guardarNodoArbol(sesion, CacheArboles.Taxi, taxi.getCodigo(), resultado.getFilePointer());
         model.addAttribute("message", resultado.getMensaje());
         return "resultadoInsercion";
     }
@@ -150,11 +191,13 @@ public class Practica1Controller implements ServletContextAware{
 	 * @return Nombre de la vista
 	 */
 	@RequestMapping(value = "/insertarTaller", method = RequestMethod.POST)
-    public String insertarTaller(@ModelAttribute("taller") Taller taller, Model model) {
+    public String insertarTaller(@ModelAttribute("taller") Taller taller, Model model,HttpSession sesion) {
 		String rutaCarpeta=servletContext.getInitParameter("RutaCarpeta");
 		Fachada.RutaCarpeta=rutaCarpeta;
 		Fachada fachada=new Fachada();
 		ResultadoOperacion resultado=fachada.guardarTaller(taller);
+		if(resultado.isResultado())
+ 			CacheArboles.guardarNodoArbol(sesion, CacheArboles.Taller, taller.getCodigo(), resultado.getFilePointer());
         model.addAttribute("message", resultado.getMensaje());
         return "resultadoInsercion";
     }
@@ -228,4 +271,6 @@ public class Practica1Controller implements ServletContextAware{
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext=servletContext;		
 	}
+	
+	
 }

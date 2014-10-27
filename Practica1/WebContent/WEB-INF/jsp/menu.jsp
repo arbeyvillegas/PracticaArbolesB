@@ -7,6 +7,7 @@
 	<a href="./consultar">Consultar</a>&nbsp;
 	<a href="./listado1">Listado 1</a>&nbsp;
 	<a href="./listado2">Listado 2</a>
+	<a href="./seleccionarArbolVisualizar">Visualizar &Aacute;rbol</a>
 	<br/>
 </div>
 <br/>

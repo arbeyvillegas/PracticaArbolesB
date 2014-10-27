@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -10,27 +11,24 @@
 </head>
 <body>
 	<jsp:include page="menu.jsp"/>
-	<table border="1" style="min-width: 400px;">
-		<caption>Listado de talleres</caption>
-		<tr>
-			<th>C&oacute;digo taller</th>
-			<th>Nombre taller</th>
-			<th>C&oacute;digos taxi</th>
-		<tr>
-		<c:forEach var="listValue" items="${list}">
+	<form:form action="visualizarArbol" method="post" commandName="modelo">
+		<table class="tableInsert">
+			<caption>Seleccione  el &Aacute;rbol a visualizar</caption>
 			<tr>
-				<td class="numero">
-					<c:out value="${listValue.getCodigoTaller()}"/>
-				</td>
-				<td >
-					<c:out value="${listValue.getNombreTaller()}"/>
+				 <td>
+					<form:radiobutton path="valor" value="Identificacion" label="Identificacion"/>
 				</td>
 				<td>
-					<c:out value="${listValue.getCodigosTaxi()}"/>
+					<form:radiobutton path="valor" value="Taller" label="Taller"/>
+				</td> 
+				<td>
+					<form:radiobutton path="valor" value="Taxi" label="Taxi"/>
+				</td> 
+				<td>
+					<input type="submit" value="Seleccionar"/>
 				</td>
 			</tr>
-		</c:forEach>
-	</table>
-	<h1><c:out value="${message}"></c:out></h1>
+		</table>
+	</form:form>
 </body>
 </html>

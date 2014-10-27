@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Practica 1 - Arbey Villegas Carvajal</title>
+<title>Practica 2 - Arbey Villegas Carvajal</title>
 <link href="<c:url value="/resources/css/practica1.css" />" rel="stylesheet" type="text/css"/>
 </head>
 <body>
